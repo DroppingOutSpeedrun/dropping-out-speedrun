@@ -1,6 +1,8 @@
 # 快进到退学
 「快进到退学」是[cxOrz/chaoxing-sign-cli: 超星学习通签到：支持普通签到、拍照签到、手势签到、位置签到、二维码签到，支持自动监测、QQ机器人签到与推送。](https://github.com/cxOrz/chaoxing-sign-cli)项目的微信小程序版本实现。本项目直接与超星学习通服务端进行通信，无后端依赖，可去中心化部署。
 
+![效果图](/docs/images/效果图.png)
+
 ## 部署教程
 ### 注册微信小程序开发者账号并配置
 打开[小程序](https://mp.weixin.qq.com/wxopen/waregister?action=step1)，按照流程注册小程序开发者账号并实名。
