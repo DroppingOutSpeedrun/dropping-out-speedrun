@@ -17,12 +17,12 @@
 ### 下载源码
 点击下方任意一个打得开的链接下载最新版源码，然后解压到任意位置。
 
-- [Bitbucket下载](https://bitbucket.org/dropping-out-speedrun/dropping-out-speedrun/downloads/?tab=tags)
-点击zip
+- [Bitbucket下载](https://bitbucket.org/dropping-out-speedrun/dropping-out-speedrun/downloads/?tab=tags)：点击zip
+
 ![Bitbucket下载](/docs/images/Bitbucket下载.png)
 
-- [GitHub下载](https://github.com/DroppingOutSpeedrun/Dropping-Out-Speedrun/tags)
-点击zip
+- [GitHub下载](https://github.com/DroppingOutSpeedrun/Dropping-Out-Speedrun/tags)：点击zip
+
 ![GitHub下载](/docs/images/GitHub下载.png)
 
 ### 使用微信开发者工具进行部署
