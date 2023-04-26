@@ -1,0 +1,92 @@
+<!--pages/locationPicker/locationPicker.wxml-->
+<view class="weui-form" id="container">
+  <!-- disable because of precision problem -->
+  <!-- <map
+    longitude="{{longitude || 113.324520}}"
+    latitude="{{latitude || 23.099994}}"
+    markers="{{markers}}"
+    style="width: 100%;">
+  </map> -->
+  <view class="weui-form__text-area">
+    <view class="weui-form__desc">
+      <!-- 上面的地图仅供参考，实际以<navigator class="link" url="./" bindtap="copyBaiduCoordinatePicker">百度地图拾取坐标系统</navigator>为准。 -->
+      请使用<navigator class="link" url="./" bindtap="copyBaiduCoordinatePicker">百度地图拾取坐标系统</navigator>获取坐标。
+    </view>
+  </view>
+  <view class="weui-form__control-area">
+    <view
+      class="weui-cells__group weui-cells__group_form weui-cells__group_form-primary">
+			<view class="weui-cells__title">经纬度</view>
+			<view class="weui-cells">
+				<view class="weui-cell weui-cell_active">
+					<view class="weui-cell__hd"><label class="weui-label">经度</label></view>
+					<view class="weui-cell__bd">
+						<input
+              class="weui-input"
+              type="digit"
+              placeholder="经度"
+              placeholder-class="weui-input__placeholder"
+              model:value="{{longitude}}"
+              bindinput="setMarkers" />
+					</view>
+				</view>
+				<view class="weui-cell weui-cell_active">
+					<view class="weui-cell__hd">
+            <label class="weui-label">纬度</label>
+          </view>
+					<view class="weui-cell__bd">
+						<input
+              class="weui-input"
+              type="digit"
+              placeholder="纬度"
+              placeholder-class="weui-input__placeholder"
+              model:value="{{latitude}}"
+              bindinput="setMarkers" />
+					</view>
+				</view>
+        <label class="weui-cell weui-cell_active weui-cell_switch">
+          <view class="weui-cell__bd">随机小数点后五到十三位</view>
+          <view class="weui-cell__ft">
+            <view class="weui-switch-cp">
+              <checkbox class="weui-switch-cp__input" model:checked="{{random}}" />
+              <view class="weui-switch-cp__box"></view>
+            </view>
+          </view>
+        </label>
+			</view>
+      <view
+        class="weui-cells__tips weui-cells__tips_warn"
+        style="{{coordinateErrorMessage ? 'display:block' : 'display:none'}}">
+        {{coordinateErrorMessage}}
+      </view>
+		</view>
+    <view class="weui-cells__group weui-cells__group_form">
+      <view class="weui-cells__title">地址</view>
+      <view class="weui-cells weui-cells_form">
+          <view class="weui-cell" hover-class="weui-cell_active">
+              <view class="weui-cell__bd">
+                  <textarea
+                    class="weui-textarea"
+                    model:value="{{address}}"
+                    bindtap="setMarkers"
+                    bindinput="emptyMethod"
+                    placeholder="地址"
+                    placeholder-class="weui-input__placeholder"
+                    rows="3">
+                  </textarea>
+              </view>
+          </view>
+      </view>
+      <view
+        class="weui-cells__tips weui-cells__tips_warn"
+        style="{{addressErrorMessage ? 'display:block' : 'display:none'}}">
+        {{addressErrorMessage}}
+      </view>
+    </view>
+  </view>
+  <view class="weui-form__opr-area">
+    <button class="weui-btn weui-btn_primary" aria-role="button" bindtap="sign">
+      确定
+    </button>
+  </view>
+</view>

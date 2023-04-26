@@ -1,0 +1,74 @@
+<!--index.wxml-->
+<view id="container">
+  <button class="weui-btn weui-btn_default" bindtap="openUserManager">
+    用户管理
+  </button>
+  <view id="no-activity">{{message}}</view>
+  <view id="users">
+    <view
+      wx:for="{{missions}}"
+      wx:for-index="activityId"
+      wx:for-item="activityInfo"
+      wx:key="activityId">
+      <view class="weui-cells__title">
+        <view>
+          {{activityInfo.courseInfo.course.name}}（{{activityInfo.courseInfo.class.name}}）：{{activityInfo.activity.name}}（{{signMethods[activityId]}}）
+        </view>
+        <view>{{activityInfo.activity.endTimeForHuman}}</view>
+      </view>
+      <view class="weui-cells weui-cells_after-title">
+        <block wx:for="{{activityInfo.users}}" wx:for-item="user" wx:key="id">
+          <view class="weui-cell" aria-role="option">
+            <view class="weui-cell__bd">
+              <view>{{user.name}}</view>
+              <view class="weui-cell__desc">{{results[activityId][user.id]}}</view>
+            </view>
+            <view class="weui-cell__ft">{{user.id}}</view>
+          </view>
+        </block>
+      </view>
+      <view class="weui-cells__tips">
+        <button
+          class="weui-btn weui-btn_primary"
+          data-id="{{activityId}}"
+          aria-role="button"
+          bindtap="sign">
+          签到
+        </button>
+      </view>
+    </view>
+  </view>
+  <view
+    wx:if="{{signMethodsForChoice}}"
+    aria-role="签到方式选项菜单"
+    aria-modal="true"
+    aria-labelledby="js_dialog_title"
+    class="fadeIn"
+    bindtap="closeSignMethodsChoice">
+      <view
+        class="weui-mask"
+        aria-role="button"
+        aria-label="关闭"
+        bindtap="closeSignMethodsChoice">
+      </view>
+      <view class="weui-actionsheet weui-actionsheet_toggle">
+          <view class="weui-actionsheet__title">
+              <view class="weui-actionsheet__title-text" id="js_dialog_title">
+                选择签到方式
+              </view>
+          </view>
+          <view class="weui-actionsheet__menu" wx:for="{{signMethodsForChoice}}">
+              <view
+                aria-role="button"
+                class="weui-actionsheet__cell"
+                data-signMethod="{{item}}"
+                bindtap="sign">
+                {{item}}
+              </view>
+          </view>
+          <view class="weui-actionsheet__action">
+              <view aria-role="button" class="weui-actionsheet__cell">取消</view>
+          </view>
+      </view>
+  </view>
+</view>

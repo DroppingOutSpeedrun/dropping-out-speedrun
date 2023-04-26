@@ -1,0 +1,48 @@
+<!--pages/remeberPasswordTips/remeberPasswordTips.wxml-->
+<view class="container">
+  <view class="weui-article">
+    <view aria-role="heading" aria-level="4" class="weui-article__h1">信息安全与隐私提醒</view>
+    <view class="weui-article__section">
+      <view class="weui-article__p">
+        本页面只会在您从未登入用户时主动弹出，您仍可通过<span style="font-weight: bold;">「添加账号」页面底部的超链接</span>点击查看此页面。
+      </view>
+      <view class="weui-article__p">
+        本小程序在<span style="font-weight: bold;">任何情况下都不会</span>将您的信息<span style="font-weight: bold;">上传到超星学习通以外</span>的地方，也<span style="font-weight: bold;">不会</span>将您的信息<span style="font-weight: bold;">储存或共享给微信以外</span>的程序！
+      </view>
+    </view>
+    <view class="weui-article__section">
+      <view class="weui-article__h5">本小程序会储存一些信息用于签到。明文储存：</view>
+      <view class="weui-article__ul">
+        <view class="weui-article__li">账户登录状态信息（Cookie）</view>
+        <view class="weui-article__li">账户中的课程和班级信息</view>
+      </view>
+      <view class="weui-article__h5">加密储存：</view>
+      <view class="weui-article__ul">
+        <view class="weui-article__li">账户ID</view>
+        <view class="weui-article__li">账户所属人的姓名</view>
+      </view>
+      <view class="weui-article__h5">如果您选择了「记住密码」，还将加密储存：</view>
+      <view class="weui-article__ul">
+        <view class="weui-article__li">账户ID</view>
+        <view class="weui-article__li">账号</view>
+        <view class="weui-article__li">密码</view>
+      </view>
+      <view class="weui-article__p">
+        上述需要储存的信息，会交由微信储存在单独为本小程序准备的存储空间中，<span style="font-weight: bold;">操作系统和微信</span>会共同保证这些明文储存和加密储存的信息隐私<span style="font-weight: bold;">不被其他小程序、其他app或其他人读取</span>。而需要加密的信息，会交由<span style="font-weight: bold;">微信使用业界通用的AES-128算法加密后储存</span>（<navigator class="link" url="./" bindtap="copyWeChatDocumentLink">微信加密说明文档</navigator>）。但即使有加密，储存账号密码的行为仍然<span style="font-weight: bold;">具有一定的风险</span>。<span style="font-weight: bold;">不选择「记住密码」</span>，本小程序则<span style="font-weight: bold;">不会储存</span>学习通账户的账号和密码。
+      </view>
+    </view>
+    <view class="weui-article__section">
+      <view class="weui-article__p">
+        在<span style="font-weight: bold;">点击「登录」按钮前</span>，您可以<span style="font-weight: bold;">选择是否开启「记住密码」</span>。在登录后，您可以在<span style="font-weight: bold;">「用户管理」中选择用户，点击「登出」，即可从存储空间中删除该账号相关的所有信息</span>。如果您怀疑密码已经泄露，可以在<span style="font-weight: bold;">超星学习通内修改密码</span>。
+      </view>
+      <view class="weui-article__p">
+        登入用户代表您<span style="font-weight: bold;">已理解</span>以上内容。
+      </view>
+    </view>
+  </view>
+  <navigator
+    class="weui-btn weui-btn_primary"
+    open-type="navigateBack">
+    真啰嗦
+  </navigator>
+</view>

@@ -1,0 +1,100 @@
+<!--pages/userInfo/userInfo.wxml-->
+<view id="container">
+  <view class="weui-form__control-area">
+    <view wx:if="{{id > 0 || name}}" class="weui-cells__group weui-cells__group_form">
+      <view class="weui-cells__title">用户信息</view>
+      <view class="weui-cells weui-cells_form">
+        <view class="weui-cell weui-cell_active weui-cell_disabled">
+          <view class="weui-cell__hd">
+            <label class="weui-label">ID</label>
+          </view>
+          <view class="weui-cell__bd">
+            <input class="weui-input" placeholder="" model:value="{{id}}" disabled />
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_active weui-cell_disabled">
+          <view class="weui-cell__hd">
+            <label class="weui-label">名称</label>
+          </view>
+          <view class="weui-cell__bd">
+            <input class="weui-input" placeholder="" model:value="{{name}}" disabled />
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="weui-cells__group weui-cells__group_form">
+      <view class="weui-cells__title">登录信息</view>
+      <view class="weui-cells weui-cells_form">
+        <view class="weui-cell weui-cell_active">
+          <view class="weui-cell__hd">
+            <label class="weui-label">用户名</label>
+          </view>
+          <view class="weui-cell__bd weui-flex">
+            <input
+              class="weui-input"
+              type="text"
+              placeholder="手机号或超星号"
+              placeholder-class="weui-input__placeholder"
+              model:value="{{username}}"
+              bindinput="emptyMethod" />
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_active">
+          <view class="weui-cell__hd">
+            <label class="weui-label">密码</label>
+          </view>
+          <view class="weui-cell__bd weui-flex">
+            <input
+              class="weui-input"
+              password="true"
+              placeholder="密码"
+              placeholder-class="weui-input__placeholder"
+              model:value="{{password}}"
+              bindinput="emptyMethod" />
+          </view>
+        </view>
+      </view>
+      <label class="weui-agree" aria-role="" bindtap="toPrivacyTips">
+        <checkbox
+          class="weui-agree__checkbox-check"
+          model:checked="{{remeber}}"
+          aria-labelledby="js_agree_txt js_agree_link" />
+        <i class="weui-agree__checkbox"></i>
+        <span class="weui-agree__text">记住密码</span>
+      </label>
+      <view
+        class="weui-cells__tips weui-cells__tips_warn"
+        style="{{errorMessage ? 'display:block' : 'display:none'}}">
+        {{errorMessage}}
+      </view>
+    </view>
+  </view>
+  <view class="weui-form__tips-area">
+    <view class="weui-form__tips">
+      <view model:hidden="{{hideUserManagements}}">课程数量：{{totalOfCourse}}</view>
+      <navigator url="../privacyTips/privacyTips">
+        信息安全与隐私提醒
+      </navigator>
+    </view>
+  </view>
+  <view class="weui-form__opr-area">
+    <button
+      class="weui-btn weui-btn_primary"
+      bindtap="addUser">
+      登入
+    </button>
+    <button
+      class="weui-btn weui-btn_default"
+      model:hidden="{{hideUserManagements}}"
+      bindtap="refreshCourseInfoArray">
+      刷新课程列表
+    </button>
+    <navigator
+      class="weui-btn weui-btn_warn"
+      model:hidden="{{hideUserManagements}}"
+      bindtap="removeUser"
+      open-type="navigateBack">
+      登出
+    </navigator>
+  </view>
+</view>

@@ -1,0 +1,40 @@
+<!--pages/userManager/userManager.wxml-->
+<view id="container">
+  <button class="weui-btn weui-btn_primary" bindtap="openUserInfo">添加用户</button>
+  <view id="credentials">
+    <view class="weui-cells weui-cells_after-title">
+      <block wx:for="{{users}}" wx:for-item="user" wx:key="id">
+        <view
+          aria-role=""
+          data-credential="{{idToCredentials[user.id]}}"
+          data-id="{{user.id}}"
+          data-name="{{user.name}}"
+          class="weui-cell weui-cell_access"
+          hover-class="weui-cell_active"
+          bindtap="openUserInfo">
+          <view
+            aria-role="link"
+            aria-labelledby="js_cell_tl1_bd js_cell_tl1_ft"
+            id="js_cell_tl1_bd"
+            class="weui-cell__bd">
+            {{user.name}}
+          </view>
+          <view
+            class="weui-cell__ft weui-cell__ft_in-access"
+            id="js_cell_tl1_ft"
+            aria-hidden="true">
+            {{user.id}}
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+  <view id="footer">
+    <navigator class="link" url="./" bindtap="copyBitbucketLink">
+      源代码（Bitbucket）
+    </navigator>
+    <navigator class="link" url="./" bindtap="copyGitHubLink">
+      源代码（GitHub）
+    </navigator>
+  </view>
+</view>
