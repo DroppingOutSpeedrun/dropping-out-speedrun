@@ -124,13 +124,13 @@ Page({
 
   copyGitHubLink() {
     wx.setClipboardData({
-      data: '',
+      data: 'https://github.com/DroppingOutSpeedrun/Dropping-Out-Speedrun',
     });
   },
 
   copyBitbucketLink() {
     wx.setClipboardData({
-      data: 'https://bitbucket.org/dropping-out-speedrun/wechat-miniprogram',
+      data: 'https://bitbucket.org/dropping-out-speedrun/dropping-out-speedrun',
     });
   },
 
