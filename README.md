@@ -6,12 +6,15 @@
 打开[小程序](https://mp.weixin.qq.com/wxopen/waregister?action=step1)，按照流程注册小程序开发者账号并实名。
 
 在小程序管理后台内，选择左侧的「开发 - 开发管理」，再点击上方的「开发设置」。
+
 ![小程序管理后台-开发设置](/docs/images/小程序管理后台-开发设置.png)
 
 点击服务器域名中的「开始配置」配置域名。
+
 ![小程序管理后台-服务器域名](/docs/images/小程序管理后台-服务器域名.png)
 
 在「request合法域名」一栏中填入`https://mobilelearn.chaoxing.com;https://mooc1-1.chaoxing.com;https://pan-yz.chaoxing.com;https://passport2.chaoxing.com;`，点击「保存并提交」。
+
 ![配置服务器域名](/docs/images/配置服务器域名.png)
 
 ### 下载源码
@@ -29,46 +32,60 @@
 打开[微信开发者工具下载地址与更新日志 | 微信开放文档](https://developers.weixin.qq.com/miniprogram/dev/devtools/download.html)，找到「稳定版」一栏。一般下载「Windows 64」版本，新款苹果电脑下载「macOS ARM64」版本，旧款苹果电脑下载「macOS x64」版本，不是苹果电脑但打不开「Windows 64」版本则下载「Windows 32」版本。
 
 安装好微信开发者工具之后打开，然后使用微信扫描二维码，并在手机上确认登入。
+
 ![登入微信开发者工具](/docs/images/登入微信开发者工具.jpg)
 
 点击导入，选择源码所在位置，打开到能看到miniprogram等文件夹时，点击选择文件夹。
-![导入源码](/docs/images/导入源码.jpg)
+
+![导入源码](/docs/images/导入源码.png)
 
 点击AppID下拉菜单，选择一个AppID。然后将后端服务设置为「不使用云服务」，其他设置保持默认即可。最后点击确定。
-![导入小程序向导](/docs/images/导入小程序向导.jpg)
+
+![导入小程序向导](/docs/images/导入小程序向导.png)
 
 选择「信任并运行」
-![信任并运行](/docs/images/信任并运行.jpg)
+
+![信任并运行](/docs/images/信任并运行.png)
 
 点击「预览」，然后使用微信扫描二维码即可运行
-![信任并运行](/docs/images/信任并运行.jpg)
+
+![预览](/docs/images/预览.png)
 
 ### 将小程序分享给他人使用
 选择「上传」，然后再点击上传
-![上传](/docs/images/上传.jpg)
+
+![上传](/docs/images/上传.png)
 
 在微信中搜索「小程序助手」，选择小程序
+
 ![选择小程序](/docs/images/选择小程序.jpg)
 
 点击「成员管理」
+
 ![成员管理](/docs/images/成员管理.jpg)
 
 点击「体验成员」，再点击「新增体验成员」
+
 ![添加资格](/docs/images/添加资格.jpg)
 
 输入受邀者微信号，搜索受邀者
+
 ![搜索受邀者](/docs/images/搜索受邀者.jpg)
 
 回到主页，选择「审核管理」
+
 ![审核管理](/docs/images/审核管理.jpg)
 
 点击刚发布的开发版
+
 ![选择开发版](/docs/images/选择开发版.jpg)
 
 点击「体验版二维码」
+
 ![体验版二维码](/docs/images/体验版二维码.jpg)
 
 将此二维码分享给受邀者即可
+
 ![小程序二维码](/docs/images/小程序二维码.jpg)
 
 ## 签到类型支持
