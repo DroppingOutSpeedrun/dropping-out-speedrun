@@ -72,7 +72,7 @@ Page({
       .then(({ status, data, message, cookie, courseInfoArray }) => {
         if (!status) {
           console.error(message, data);
-          wx.showToast({ title: message, icon: 'error' });
+          wx.showToast({ title: '课程信息获取失败', icon: 'error' });
           return false;
         }
 
@@ -179,10 +179,7 @@ Page({
           console.warn('openUserManager(): failed to parse parameters.', e);
         } else {
           console.error(e);
-          wx.showToast({
-            title: `打开用户管理时发生未知错误：${JSON.stringify(e)}`,
-            icon: 'error',
-          });
+          wx.showToast({ title: `打开用户管理时出错`, icon: 'error' });
         }
       }
     }
@@ -295,7 +292,7 @@ Page({
         if (result.status !== 'fulfilled') {
           allDone = false;
           console.error('failed to process this promise', result);
-          wx.showToast({ title: result.reason, icon: 'error' });
+          wx.showToast({ title: '签到活动信息获取失败', icon: 'error' });
           return;
         }
   
@@ -306,7 +303,7 @@ Page({
           allDone = false;
           console.error(message, data);
           console.error(`typeof nameOfUsers[${cookie.id}]`, typeof name);
-          wx.showToast({ title: message, icon: 'error' });
+          wx.showToast({ title: '签到活动信息获取失败', icon: 'error' });
           return;
         }
 
@@ -338,7 +335,7 @@ Page({
               'failed to process this isPhotoSignPromise',
               isPhotoSignResult,
             );
-            wx.showToast({ title: isPhotoSignResult.reason, icon: 'error' });
+            wx.showToast({ title: '点击/拍照签到活动区分失败', icon: 'error' });
             return;
           }
 
@@ -465,7 +462,6 @@ Page({
       .then((results) => results.forEach((result) => {
         if (result.status !== 'fulfilled') {
           console.error('failed to process this promise', result);
-          wx.showToast({ title: result.reason, icon: 'error' });
           return;
         }
 
@@ -502,7 +498,7 @@ Page({
       const end = result.indexOf('&', start);
       if (start < 0 || end <= 0) {
         console.error('failed to parse enc from QR code');
-        wx.showToast({ title: '二维码解析失败，请重新扫码', icon: 'error' });
+        wx.showToast({ title: '二维码解析失败', icon: 'error' });
         return;
       }
 
@@ -571,7 +567,7 @@ Page({
           .forEach((result, index) => {
             if (result.status !== 'fulfilled') {
               console.error('failed to process this promise', result);
-              wx.showToast({ title: result.reason, icon: 'error' });
+              wx.showToast({ title: '获取学习通云盘密钥时失败', icon: 'error' });
               return;
             }
 
@@ -579,7 +575,7 @@ Page({
 
             if (!status) {
               console.error(message, data);
-              wx.showToast({ title: message, icon: 'error' });
+              wx.showToast({ title: '获取学习通云盘密钥时失败', icon: 'error' });
               return;
             }
 
@@ -598,7 +594,7 @@ Page({
           .then((results) => results.forEach((result) => {
             if (result.status !== 'fulfilled') {
               console.error('failed to process this promise', result);
-              wx.showToast({ title: result.reason, icon: 'error' });
+              wx.showToast({ title: '上传文件到学习通云盘时失败', icon: 'error' });
               return;
             }
 
@@ -608,7 +604,7 @@ Page({
             if (!status || !isString(name) || !(name.length > 0)) {
               console.error(message, data);
               console.error(`typeof nameOfUsers[${cookie.id}]`, typeof name);
-              wx.showToast({ title: message, icon: 'error' });
+              wx.showToast({ title: '上传文件到学习通云盘时失败', icon: 'error' });
               return;
             }
 
@@ -775,14 +771,12 @@ Page({
     Promise.allSettled(promises).then((results) => results.forEach((result) => {
       if (result.status !== 'fulfilled') {
         console.error('failed to process this promise', result);
-        wx.showToast({ title: result.reason, icon: 'error' });
         return;
       }
 
       const { status, message, data, cookie } = result.value;
       if (!status) {
         console.warn(message, data);
-        wx.showToast({ title: message, icon: 'error' });
         return;
       }
 
