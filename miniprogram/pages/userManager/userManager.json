@@ -1,4 +1,5 @@
 {
   "navigationBarTitleText": "用户管理",
+  "enablePullDownRefresh": true,
   "usingComponents": {}
 }

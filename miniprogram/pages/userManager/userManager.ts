@@ -1,4 +1,5 @@
-import { Credential, User } from "../../utils/types";
+import { login } from "../../services/login";
+import { Credential, GetCookieFailedResult, LoginResult, NameFailedResult, User } from "../../utils/types";
 import { isString, parametersToStringifyString, toCredential } from "../../utils/util";
 
 // pages/userManager/userManager.ts
@@ -223,7 +224,33 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh() {
+    console.debug('start refreshing cookies');
+    let promises: Promise<LoginResult|GetCookieFailedResult|NameFailedResult>[] = [];
+    this.data.credentials.forEach(({ username, password }) =>
+      promises = promises.concat(login(username, password))
+    );
 
+    Promise.allSettled(promises).then((results) => results.forEach((result) => {
+      if (result.status !== 'fulfilled') {
+        console.error('failed to process this promise', result);
+        wx.showToast({
+          title: `部分用户的登录信息刷新失败：${result.reason}`,
+          icon: 'error',
+        });
+        return;
+      }
+
+      const { status, message, data } = result.value;
+
+      if (!status) {
+        console.error(message, data);
+        wx.showToast({ title: message, icon: 'error' });
+        return;
+      }
+
+      const user: User = (result.value as any).user;
+      this.getOpenerEventChannel().emit('addUser', user);
+    })).finally(() => wx.stopPullDownRefresh());
   },
 
   /**
