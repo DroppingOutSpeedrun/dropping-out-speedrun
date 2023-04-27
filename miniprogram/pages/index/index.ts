@@ -305,7 +305,7 @@ Page({
         if (!status || !isString(name) || !(name.length > 0)) {
           this.setData({ allDone: false });
           console.error(message, data);
-          console.error(`nameOfUsers[${cookie.id}] = `, name);
+          console.error(`typeof nameOfUsers[${cookie.id}]`, typeof name);
           wx.showToast({ title: message, icon: 'error' });
           return;
         }
@@ -605,7 +605,7 @@ Page({
 
             if (!status || !isString(name) || !(name.length > 0)) {
               console.error(message, data);
-              console.error(`nameOfUsers[${cookie.id}] = `, name);
+              console.error(`typeof nameOfUsers[${cookie.id}]`, typeof name);
               wx.showToast({ title: message, icon: 'error' });
               return;
             }
