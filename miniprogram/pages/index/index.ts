@@ -293,7 +293,7 @@ Page({
 
       activitiesResults.forEach((result) => {
         if (result.status !== 'fulfilled') {
-          this.setData({ allDone: false });
+          allDone = false;
           console.error('failed to process this promise', result);
           wx.showToast({ title: result.reason, icon: 'error' });
           return;
@@ -303,7 +303,7 @@ Page({
         const name = this.data.nameOfUsers[cookie.id];
   
         if (!status || !isString(name) || !(name.length > 0)) {
-          this.setData({ allDone: false });
+          allDone = false;
           console.error(message, data);
           console.error(`typeof nameOfUsers[${cookie.id}]`, typeof name);
           wx.showToast({ title: message, icon: 'error' });
@@ -333,7 +333,7 @@ Page({
       Promise.allSettled(isPhotoSignPromises).then((isPhotoSignResults) =>
         isPhotoSignResults.forEach((isPhotoSignResult) => {
           if (isPhotoSignResult.status !== 'fulfilled') {
-            this.setData({ allDone: false });
+            allDone = false;
             console.error(
               'failed to process this isPhotoSignPromise',
               isPhotoSignResult,
@@ -348,6 +348,7 @@ Page({
       ).then(() => activitiesResults.forEach((activityResult) => {
         if (activityResult.status !== 'fulfilled') {
           allDone = false;
+          // already log before
           return;
         }
   
@@ -356,6 +357,7 @@ Page({
   
         if (!status || !isString(name) || !(name.length > 0)) {
           allDone = false;
+          // already log before
           return;
         }
   
