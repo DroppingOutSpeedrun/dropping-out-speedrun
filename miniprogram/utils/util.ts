@@ -134,7 +134,10 @@ export const toActivity = (rawActivity: RawActivityWithKnownOtherId): Activity =
     name: rawActivity.nameOne,
     signMethod,
     startTime: rawActivity.startTime,
-    endTime: rawActivity.endTime === '' ? -1 : rawActivity.endTime,
+    endTime: rawActivity.endTime === ''
+      // two hour is a reasonable time
+      ? (new Date()).getTime() + 1000 * 60 * 60 * 2
+      : rawActivity.endTime,
     endTimeForHuman: rawActivity.nameFour,
     raw: rawActivity,
   };
