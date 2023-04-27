@@ -124,7 +124,7 @@ Page({
       // replace existed cookie
       const caches = this.data.caches.map((cache) => cache.cookie.id === user.id
         ? {
-          cookie: existedCache.cookie,
+          cookie: userToCookie(user),
           courseInfoArray: existedCache.courseInfoArray,
         }
         : cache);
@@ -436,7 +436,7 @@ Page({
             // some missions failed
             if (!allDone) {
               this.setData({
-                message: '部分数据获取失败，请尝试在用户管理中更新登录状态并返回主页下拉刷新数据',
+                message: '部分数据获取失败，请尝试在用户管理中下拉更新登录状态或重新输入账号密码',
               });
               return;
             }
