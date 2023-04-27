@@ -144,8 +144,6 @@ Page({
       try {
         const name = JSON.parse(options.name);
 
-        console.debug('name =', name);
-
         this.setData({
           name,
         });
@@ -163,8 +161,6 @@ Page({
     if (options.credential) {
       try {
         const credential: Credential = JSON.parse(options.credential);
-
-        console.debug(`credential =`, credential);
 
         const totalsOfCourse = getApp().globalData.totalsOfCourse;
         console.debug(`totalsOfCourse =`, totalsOfCourse);
