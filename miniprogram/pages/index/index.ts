@@ -308,10 +308,8 @@ Page({
         }
 
         activities.filter(
-          // filter activities that started before a day
-          (activity) => activity.startTime > now - 1000 * 60 * 60 * 24 &&
-            // display empty endTime activity
-            (activity.endTime < 0 || activity.endTime > now)
+          // display empty endTime activity
+          (activity) => activity.endTime < 0 || activity.endTime > now
         ).filter((activity) => activity.signMethod === 'clickOrPhoto')
           .forEach(({ id }) => {
             if (!ids.includes(id)) {
@@ -362,10 +360,8 @@ Page({
         // latest activity show at top
         activities.concat().sort((a, b) => b.startTime - a.startTime)
           .filter(
-            // filter activities that started before a day
-            (activity) => activity.startTime > now - 1000 * 60 * 60 * 24 &&
-              // display empty endTime activity
-              (activity.endTime < 0 || activity.endTime > now)
+            // display empty endTime activity
+            (activity) => activity.endTime < 0 || activity.endTime > now
           ).forEach((activity) => {
             const mission = missions[activity.id];
 
