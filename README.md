@@ -101,6 +101,31 @@
 ## 信息安全与隐私
 本小程序不会与超星学习通以外的服务器进行通信，只在本地储存用户信息，通过[微信内置的AES-128加密储存API](https://developers.weixin.qq.com/miniprogram/dev/api/storage/wx.setStorage.html#Object-object)对敏感信息进行加密储存。
 
+## Developing
+Clone this project.
+From GitHub:
+```shell
+git clone https://github.com/DroppingOutSpeedrun/dropping-out-speedrun.git
+```
+
+Or from BitBucket:
+```shell
+git clone https://bitbucket.org/dropping-out-speedrun/dropping-out-speedrun.git
+```
+
+You have to install [Node.js](https://nodejs.org/) and [pnpm](https://pnpm.io/) (not sure npm could be used) to install dependencies:
+```shell
+cd ./dropping-out-speedrun/miniprogram/
+pnpm install
+```
+
+Start reading by services is a good begining:
+- `getCookie()` in `services/login.ts`
+- `getCourseInfoArray()` in `services/course.ts`
+- `getActivities()` in `services/course.ts`
+- `preSign()` in `services/sign.ts`
+- `generalSign()` in `services/sign.ts`
+
 ## LICENSE
 Dropping Out Speedrun
 Copyright (C) 2023  Dropping Out Speedrun
