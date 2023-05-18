@@ -307,8 +307,21 @@ Page({
           return;
         }
 
+        // TODO: a setting for user to toggle the visible of expired activities?
+        const expiredActivities = activities.filter(
+          (activity) => (activity.endTime < 0 || activity.endTime > now)
+            && activity.startTime < now - 1000 * 60 * 60 * 24 * 182
+        );
+
+        if (expiredActivities.length > 0) {
+          console.debug(
+            "detect activities that started before a half year",
+            expiredActivities,
+          );
+        }
+
         activities.filter(
-          // filter activities that started before a day
+          // filter activities that started before a half year
           (activity) => activity.startTime > now - 1000 * 60 * 60 * 24 * 182 &&
           // display empty endTime activity
           (activity.endTime < 0 || activity.endTime > now)
@@ -362,7 +375,7 @@ Page({
         // latest activity show at top
         activities.concat().sort((a, b) => b.startTime - a.startTime)
           .filter(
-            // filter activities that started in last half year
+            // filter activities that started before a half year
             (activity) => activity.startTime > now - 1000 * 60 * 60 * 24 * 182 &&
             // display empty endTime activity
             (activity.endTime < 0 || activity.endTime > now)
