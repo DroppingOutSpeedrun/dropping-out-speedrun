@@ -26,7 +26,7 @@
 
 ![Bitbucket下载](/docs/images/Bitbucket下载.png)
 
-- [GitHub下载](https://github.com/DroppingOutSpeedrun/Dropping-Out-Speedrun/tags)：点击zip
+- [GitHub下载](https://github.com/DroppingOutSpeedrun/dropping-out-speedrun/tags)：点击zip
 
 ![GitHub下载](/docs/images/GitHub下载.png)
 
