@@ -544,7 +544,6 @@ Page({
       users.forEach((user) => {
         const isValidLongitude = longitude < 180 && longitude > -180;
         const isValidLatitude = latitude < 90 && latitude > -90;
-        const isValidAltitude = altitude < (3000 * 1000);
 
         const processedLongitude =
           longitude + (random ? this.getRandomForCoordinate() : 0);
@@ -564,7 +563,7 @@ Page({
           enc,
           isValidLongitude ? processedLongitude : NaN,
           isValidLatitude ? processedLatitude : NaN,
-          isValidAltitude ? altitude : NaN,
+          altitude,
           address,
         ));
       });

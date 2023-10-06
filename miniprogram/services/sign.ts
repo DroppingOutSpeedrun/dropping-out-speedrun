@@ -122,7 +122,7 @@ export const qrCodeSign = (
     ...(
       !Number.isNaN(latitude) && !Number.isNaN(longitude)
         ? {
-          location: encodeURIComponent(`{"result":"1","address":"${address}","latitude":${latitude},"longitude":${longitude},"altitude":${altitude}}`),
+          location: encodeURIComponent(`{"result":"1","address":"${address}","latitude":${latitude},"longitude":${longitude},"altitude":${!Number.isNaN(altitude) ? altitude : -1}}`),
         }
         : {}
     ),

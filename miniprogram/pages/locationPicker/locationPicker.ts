@@ -60,10 +60,6 @@ Page({
       return this.setData({ coordinateErrorMessage: '纬度应当填写数字' });
     }
 
-    if (Number.isNaN(altitude)) {
-      return this.setData({ coordinateErrorMessage: '海拔应当填写数字' });
-    }
-
     this.getOpenerEventChannel().emit(
       'sign',
       this.data.random,
@@ -78,7 +74,7 @@ Page({
   cancel() {
     this.data.longitude = '-181';
     this.data.latitude = '-91';
-    this.data.altitude = '3000001';
+    this.data.altitude = '';
     this.data.random = false;
     this.data.address = '';
     this.sign();
