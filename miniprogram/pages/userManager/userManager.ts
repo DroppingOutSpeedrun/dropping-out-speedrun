@@ -1,4 +1,4 @@
-import { login } from "../../services/login";
+import { loginByFanya } from "../../services/login";
 import { Credential, GetCookieFailedResult, LoginResult, NameFailedResult, User } from "../../utils/types";
 import { isString, parametersToStringifyString, toCredential } from "../../utils/util";
 
@@ -226,9 +226,20 @@ Page({
   onPullDownRefresh() {
     console.debug('start refreshing cookies');
     let promises: Promise<LoginResult|GetCookieFailedResult|NameFailedResult>[] = [];
-    this.data.credentials.forEach(({ username, password }) =>
-      promises = promises.concat(login(username, password))
-    );
+    this.data.credentials.forEach(({ loginType, username, password }) => {
+      switch (loginType) {
+        case 'v11':
+          promises = promises.concat(loginByFanya(username, password));
+          break;
+        case 'fanya':
+        default:
+          if (loginType !== 'fanya') {
+            console.warn('unknown `loginType` detected, use `fanya` in default');
+          }
+          promises = promises.concat(loginByFanya(username, password));
+          break;
+      }
+    });
 
     Promise.allSettled(promises).then((results) => results.forEach((result) => {
       if (result.status !== 'fulfilled') {

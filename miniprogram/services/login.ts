@@ -5,7 +5,40 @@ import {
 import { parseCookiesFromWx, toCookieString } from '../utils/util';
 import crypto from 'crypto-js';
 
-export const getCookie = (
+const toCookieResult = (
+  data: any, cookies: string[],
+): GetCookieSuccessResult | GetCookieFailedResult => {
+  const rawData = data as any;
+
+  if (typeof rawData.status === 'boolean' && rawData.status) {
+    try {
+      return {
+        status: true,
+        data: rawData,
+        message: '',
+        cookie: parseCookiesFromWx(cookies),
+      };
+    } catch (e) {
+      return {
+        status: false,
+        data,
+        message: e instanceof TypeError
+          ? `failed to parse cookie: ${e.message}`
+          : `unknown error: ${JSON.stringify(e)}`,
+        cookie: {},
+      };
+    }
+  } else {
+    return {
+      status: false,
+      data,
+      message: 'Chaoxing returned false of status',
+      cookie: {},
+    };
+  }
+}
+
+export const getCookieByFanya = (
   username: string,
   password: string,
 ): Promise<GetCookieSuccessResult | GetCookieFailedResult> => {
@@ -24,39 +57,21 @@ export const getCookie = (
     },
     url: 'https://passport2.chaoxing.com/fanyalogin',
     data: `uname=${username}&password=${encryptedPasswordString}&fid=-1&t=true&refer=https%253A%252F%252Fi.chaoxing.com&forbidotherlogin=0&validate=`,
-    success: ({ data, cookies }) => {
-      const rawData = data as any;
-
-      if (typeof rawData.status === 'boolean' && rawData.status) {
-        try {
-          resolve({
-            status: true,
-            data: rawData,
-            message: '',
-            cookie: parseCookiesFromWx(cookies),
-          });
-        } catch (e) {
-          resolve({
-            status: false,
-            data,
-            message: e instanceof TypeError
-              ? `failed to parse cookie: ${e.message}`
-              : `unknown error: ${JSON.stringify(e)}`,
-            cookie: {},
-          });
-        }
-      } else {
-        resolve({
-          status: false,
-          data,
-          message: 'Chaoxing returned false of status',
-          cookie: {},
-        });
-      }
-    },
+    success: ({ data, cookies }) => resolve(toCookieResult(data, cookies)),
     fail: (e) => reject(e),
   }));
 }
+
+export const getCookieByV11 = (
+  username: string,
+  password: string,
+): Promise<GetCookieSuccessResult | GetCookieFailedResult> => (
+  new Promise((resolve, reject) => wx.request({
+    url: `https://passport2-api.chaoxing.com/v11/loginregister?code=${password}&cx_xxt_passport=json&uname=${username}&loginType=1&roleSelect=true`,
+    success: ({ data, cookies }) => resolve(toCookieResult(data, cookies)),
+    fail: (e) => reject(e),
+  }))
+)
 
 export const getName = (
   cookie: Cookie,
@@ -113,17 +128,41 @@ export const getName = (
     fail: (e) => reject(e),
   }));
 
-export const login = (
+export const toLoginResult = (
+  result: GetCookieSuccessResult | GetCookieFailedResult
+): Promise<LoginResult | GetCookieFailedResult | NameFailedResult> =>
+  new Promise((resolve) => {
+    if (!result.status) {
+      resolve(result);
+      return;
+    }
+
+    getName(result.cookie).then((result) => resolve(
+      result.status
+        ? {
+          ...result,
+          user: { ...result.cookie, name: result.name },
+        }
+        : result,
+    ))
+  })
+
+export const loginByFanya = (
   username: string,
   password: string,
 ): Promise<LoginResult | GetCookieFailedResult | NameFailedResult> =>
   new Promise((resolve, reject) =>
-    getCookie(username, password).then((result) => result.status
-        ? getName(result.cookie)
-            .then((result) => resolve(!result.status ? result : {
-              ...result,
-              user: { ...result.cookie, name: result.name },
-            }))
-        : resolve(result)
+    getCookieByFanya(username, password).then((result) =>
+      toLoginResult(result).then((r) => resolve(r))
+    ).catch((error) => reject(error))
+  );
+
+export const loginByV11 = (
+  username: string,
+  password: string,
+): Promise<LoginResult | GetCookieFailedResult | NameFailedResult> =>
+  new Promise((resolve, reject) =>
+    getCookieByV11(username, password).then((result) =>
+      toLoginResult(result).then((r) => resolve(r))
     ).catch((error) => reject(error))
   );

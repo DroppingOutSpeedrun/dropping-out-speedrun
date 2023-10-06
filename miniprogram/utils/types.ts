@@ -63,8 +63,11 @@ export interface User extends Cookie {
   name: string;
 }
 
+export type LoginType = 'fanya' | 'v11';
+
 export interface Credential {
   id: number;
+  loginType: LoginType;
   username: string;
   password: string;
 }

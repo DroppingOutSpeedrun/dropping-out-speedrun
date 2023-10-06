@@ -80,8 +80,13 @@
   <view class="weui-form__opr-area">
     <button
       class="weui-btn weui-btn_primary"
-      bindtap="addUser">
-      登入
+      bindtap="loginFanya">
+      登入（fanya）
+    </button>
+    <button
+      class="weui-btn weui-btn_primary"
+      bindtap="loginV11">
+      登入（v11）
     </button>
     <button
       class="weui-btn weui-btn_default"
