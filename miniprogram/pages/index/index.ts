@@ -51,6 +51,11 @@ Page({
     isChanged: false,
     message: '请先在用户管理中添加用户',
   },
+  getRandomForCoordinate() {
+    return Math.floor(Math.random() * 2) > 0
+      ? Math.floor(Math.random() * 1000000000) / 10000000000000
+      : - (Math.floor(Math.random() * 1000000000) / 10000000000000)
+  },
   /**
    * Refresh courseInfoArray in caches
    * @param id ID of user
@@ -500,7 +505,14 @@ Page({
    * Sign by QR code
    * @param activityId ID of activity to be signed
    */
-  qrCodeSign(activityId: number) {
+  qrCodeSign(
+    random: boolean,
+    longitude: number,
+    latitude: number,
+    altitude: number,
+    address: string,
+    activityId: number
+  ) {
     let promises: Promise<QrCodeSignResult>[] = [];
 
     wx.scanCode({}).then(({ result }) => {
@@ -528,9 +540,34 @@ Page({
         return;
       }
 
-      users.forEach((user) =>
-        promises = promises.concat(qrCodeSign(user, activityId, enc))
-      );
+      console.debug('location', { longitude, latitude, altitude });
+      users.forEach((user) => {
+        const isValidLongitude = longitude < 180 && longitude > -180;
+        const isValidLatitude = latitude < 90 && latitude > -90;
+        const isValidAltitude = altitude < (3000 * 1000);
+
+        const processedLongitude =
+          longitude + (random ? this.getRandomForCoordinate() : 0);
+        const processedLatitude =
+          latitude + (random ? this.getRandomForCoordinate() : 0);
+
+        if (random) {
+          console.debug(
+            `random location for user ${user.id}`,
+            { longitude: processedLongitude, latitude: processedLatitude },
+          );
+        }
+
+        promises = promises.concat(qrCodeSign(
+          user,
+          activityId,
+          enc,
+          isValidLongitude ? processedLongitude : NaN,
+          isValidLatitude ? processedLatitude : NaN,
+          isValidAltitude ? altitude : NaN,
+          address,
+        ));
+      });
     }).catch((e) => {
       if (isString(e.errMsg) && e.errMsg.includes('fail cancel')) {
         console.debug('user cancel the code scan');
@@ -650,10 +687,6 @@ Page({
     address: string,
     activityId: number,
   ) {
-    const toRandom = () => Math.floor(Math.random() * 2) > 0
-      ? Math.floor(Math.random() * 1000000000) / 10000000000000
-      : - (Math.floor(Math.random() * 1000000000) / 10000000000000);
-
     const { users } = this.data.missions[activityId];
   
     if (!Array.isArray(users)) {
@@ -669,23 +702,23 @@ Page({
 
     console.debug('location', { longitude, latitude });
     users.forEach((user) => {
-      let parsedLongitude = longitude + (random ? toRandom() : 0);
-      let parsedLatitude = latitude + (random ? toRandom() : 0);
+      const processedLongitude =
+        longitude + (random ? this.getRandomForCoordinate() : 0);
+      const processedLatitude =
+        latitude + (random ? this.getRandomForCoordinate() : 0);
 
       if (random) {
-        parsedLongitude += toRandom();
-        parsedLatitude += toRandom();
         console.debug(
           `random location for user ${user.id}`,
-          { longitude: parsedLongitude, latitude: parsedLatitude },
+          { longitude: processedLongitude, latitude: processedLatitude },
         );
       }
 
       promises = promises.concat(locationSign(
         user,
         activityId,
-        parsedLongitude,
-        parsedLatitude,
+        processedLongitude,
+        processedLatitude,
         address,
       ));
     });
@@ -831,7 +864,32 @@ Page({
           }
           break;
         case 'qrCode':
-          this.qrCodeSign(activityId);
+          wx.navigateTo({
+            url: '../locationPicker/locationPicker',
+            events: {
+              /**
+               * Sign by location from channel
+               * @param random add random number for longitude and latitude if true
+               * @param longitude longitude for sign
+               * @param latitude latitude for sign
+               * @param address address that will be shown in sign page
+               */
+              sign: (
+                random: boolean,
+                longitude: number,
+                latitude: number,
+                altitude: number,
+                address: string,
+              ) => this.qrCodeSign(
+                random,
+                longitude,
+                latitude,
+                altitude,
+                address,
+                activityId,
+              ),
+            },
+          });
           break;
         case 'location':
           wx.navigateTo({
@@ -848,6 +906,7 @@ Page({
                 random: boolean,
                 longitude: number,
                 latitude: number,
+                _altitude: number,
                 address: string,
               ) => this.locationSign(
                 random,

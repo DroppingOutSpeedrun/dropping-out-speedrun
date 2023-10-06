@@ -108,6 +108,10 @@ export const qrCodeSign = (
   user: User,
   activityId: number,
   enc: string,
+  longitude: number,
+  latitude: number,
+  altitude: number,
+  address: string,
 ): Promise<QrCodeSignResult> => sign(
   {
     enc,
@@ -115,6 +119,13 @@ export const qrCodeSign = (
     activeId: activityId.toString(),
     uid: user.id,
     clientip: '',
+    ...(
+      !Number.isNaN(latitude) && !Number.isNaN(longitude)
+        ? {
+          location: encodeURI(`{"result":"1","address":"${address}","latitude":${latitude},"longitude":${longitude},"altitude":${altitude}}`),
+        }
+        : {}
+    ),
     useragent: '',
     latitude: '-1',
     longitude: '-1',
