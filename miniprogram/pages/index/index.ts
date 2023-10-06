@@ -866,14 +866,7 @@ Page({
           wx.navigateTo({
             url: '../locationPicker/locationPicker',
             events: {
-              /**
-               * Sign by location from channel
-               * @param random add random number for longitude and latitude if true
-               * @param longitude longitude for sign
-               * @param latitude latitude for sign
-               * @param address address that will be shown in sign page
-               */
-              sign: (
+              callback: (
                 random: boolean,
                 longitude: number,
                 latitude: number,
@@ -894,14 +887,7 @@ Page({
           wx.navigateTo({
             url: '../locationPicker/locationPicker',
             events: {
-              /**
-               * Sign by location from channel
-               * @param random add random number for longitude and latitude if true
-               * @param longitude longitude for sign
-               * @param latitude latitude for sign
-               * @param address address that will be shown in sign page
-               */
-              sign: (
+              callback: (
                 random: boolean,
                 longitude: number,
                 latitude: number,

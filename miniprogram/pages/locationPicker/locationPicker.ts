@@ -61,7 +61,7 @@ Page({
     }
 
     this.getOpenerEventChannel().emit(
-      'sign',
+      'callback',
       this.data.random,
       longitude,
       latitude,
