@@ -18,7 +18,7 @@
 **v1.3.2及以下版本**:
 在「request合法域名」一栏中填入`https://mobilelearn.chaoxing.com;https://mooc1-1.chaoxing.com;https://pan-yz.chaoxing.com;https://passport2.chaoxing.com;`，点击「保存并提交」。
 
-**v1.3.3及以上版本**:
+**v1.4.0及以上版本**:
 在「request合法域名」一栏中填入`https://mobilelearn.chaoxing.com;https://mooc1-1.chaoxing.com;https://pan-yz.chaoxing.com;https://passport2.chaoxing.com;https://passport2-api.chaoxing.com;`，点击「保存并提交」。
 
 ![配置服务器域名](/docs/images/配置服务器域名.png)
