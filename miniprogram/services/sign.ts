@@ -99,7 +99,7 @@ export const generalSign = (
     longitude: '-1',
     appType: '15',
     fid: user.fid,
-    name: encodeURI(user.name),
+    name: encodeURIComponent(user.name),
   },
   cookieForSign(user),
 ).then((result) => ({ ...result, cookie: user, user, activityId }));
@@ -115,14 +115,14 @@ export const qrCodeSign = (
 ): Promise<QrCodeSignResult> => sign(
   {
     enc,
-    name: encodeURI(user.name),
+    name: encodeURIComponent(user.name),
     activeId: activityId.toString(),
     uid: user.id,
     clientip: '',
     ...(
       !Number.isNaN(latitude) && !Number.isNaN(longitude)
         ? {
-          location: encodeURI(`{"result":"1","address":"${address}","latitude":${latitude},"longitude":${longitude},"altitude":${altitude}}`),
+          location: encodeURIComponent(`{"result":"1","address":"${address}","latitude":${latitude},"longitude":${longitude},"altitude":${altitude}}`),
         }
         : {}
     ),
@@ -143,7 +143,7 @@ export const locationSign = (
   address: string,
 ): Promise<LocationSignResult> => sign(
   {
-    name: encodeURI(user.name),
+    name: encodeURIComponent(user.name),
     address,
     activeId: activityId.toString(),
     uid: user.id,
@@ -180,7 +180,7 @@ export const photoSign = (
     appType: '15',
     fid: user.fid,
     objectId: fileId,
-    name: encodeURI(user.name),
+    name: encodeURIComponent(user.name),
   },
   cookieForSign(user),
 ).then((result) => ({ ...result, cookie: user, user, activityId, fileId }));
