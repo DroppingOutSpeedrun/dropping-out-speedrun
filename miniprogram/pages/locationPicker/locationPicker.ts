@@ -7,6 +7,7 @@ Page({
   data: {
     longitude: '',
     latitude: '',
+    altitude: '',
     random: true,
     address: '',
     markers: [] as { [key: string]: string | number }[],
@@ -38,6 +39,7 @@ Page({
 
     const rawLongitude = this.data.longitude;
     const rawLatitude = this.data.latitude;
+    const rawAltitude = this.data.altitude;
 
     const decimalOfLongitude = rawLongitude.slice(rawLongitude.indexOf('.') + 1);
     const decimalOfLatitude = rawLatitude.slice(rawLatitude.indexOf('.') + 1);
@@ -48,6 +50,7 @@ Page({
 
     const longitude = Number.parseFloat(rawLongitude);
     const latitude = Number.parseFloat(rawLatitude);
+    const altitude = Number.parseFloat(rawAltitude);
 
     if (Number.isNaN(longitude)) {
       return this.setData({ coordinateErrorMessage: '经度应当填写数字' });
@@ -57,8 +60,8 @@ Page({
       return this.setData({ coordinateErrorMessage: '纬度应当填写数字' });
     }
 
-    if (!(this.data.address.length > 0)) {
-      return this.setData({ addressErrorMessage: '地址不应为空' });
+    if (Number.isNaN(altitude)) {
+      return this.setData({ coordinateErrorMessage: '海拔应当填写数字' });
     }
 
     this.getOpenerEventChannel().emit(
@@ -66,9 +69,19 @@ Page({
       this.data.random,
       longitude,
       latitude,
+      altitude,
       this.data.address,
     );
     wx.navigateBack();
+  },
+
+  cancel() {
+    this.data.longitude = '-181';
+    this.data.latitude = '-91';
+    this.data.altitude = '3000001';
+    this.data.random = false;
+    this.data.address = '';
+    this.sign();
   },
 
   /**
