@@ -15,7 +15,11 @@
 
 ![小程序管理后台-服务器域名](/docs/images/小程序管理后台-服务器域名.png)
 
+**v1.3.2及以下版本**:
 在「request合法域名」一栏中填入`https://mobilelearn.chaoxing.com;https://mooc1-1.chaoxing.com;https://pan-yz.chaoxing.com;https://passport2.chaoxing.com;`，点击「保存并提交」。
+
+**v1.3.3及以上版本**:
+在「request合法域名」一栏中填入`https://mobilelearn.chaoxing.com;https://mooc1-1.chaoxing.com;https://pan-yz.chaoxing.com;https://passport2.chaoxing.com;https://passport2-api.chaoxing.com;`，点击「保存并提交」。
 
 ![配置服务器域名](/docs/images/配置服务器域名.png)
 
@@ -120,7 +124,7 @@ pnpm install
 ```
 
 Start reading by services is a good begining:
-- `getCookie()` in `services/login.ts`
+- `getCookieByFanya()` in `services/login.ts`
 - `getCourseInfoArray()` in `services/course.ts`
 - `getActivities()` in `services/course.ts`
 - `preSign()` in `services/sign.ts`
