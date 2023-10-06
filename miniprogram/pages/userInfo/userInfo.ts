@@ -38,7 +38,8 @@ Page({
     const { username, password } = this.data;
     login(username, password).then((result) => {
       if (!result.status) {
-        this.setData({ errorMessage: result.data });
+        console.error("failed to login user", result);
+        this.setData({ errorMessage: JSON.stringify(result.data) });
         return;
       }
 
